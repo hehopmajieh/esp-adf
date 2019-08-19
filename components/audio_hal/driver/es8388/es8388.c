@@ -370,8 +370,15 @@ int es8388_set_voice_volume(int volume)
     volume /= 3;
     res = es_write_reg(ES8388_ADDR, ES8388_DACCONTROL24, volume);
     res |= es_write_reg(ES8388_ADDR, ES8388_DACCONTROL25, volume);
+    ESP_LOGI(ES_TAG, "Olimex Board");
+	
+    res |= es_write_reg(ES8388_ADDR, ES8388_DACCONTROL26, volume);
+    res |= es_write_reg(ES8388_ADDR, ES8388_DACCONTROL27, volume);
+#if 0
     res |= es_write_reg(ES8388_ADDR, ES8388_DACCONTROL26, 0);
     res |= es_write_reg(ES8388_ADDR, ES8388_DACCONTROL27, 0);
+	
+#endif
     return res;
 }
 /**
@@ -552,6 +559,7 @@ int es8388_config_i2s(audio_hal_codec_mode_t mode, audio_hal_codec_i2s_iface_t *
 
 void es8388_pa_power(bool enable)
 {
+#if 0
     gpio_config_t  io_conf;
     memset(&io_conf, 0, sizeof(io_conf));
     io_conf.intr_type = GPIO_PIN_INTR_DISABLE;
@@ -565,4 +573,7 @@ void es8388_pa_power(bool enable)
     } else {
         gpio_set_level(get_pa_enable_gpio(), 0);
     }
+#endif
+
+
 }
